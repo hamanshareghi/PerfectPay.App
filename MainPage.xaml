@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PerfectPay.MainPage" 
-             BackgroundColor="#323232">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+
+BackgroundColor="#323232">
 
     <ContentPage.Resources>
         <Color x:Key="SectionColor">#444444</Color>
@@ -43,12 +45,26 @@
 
         <Grid Grid.Row="1" RowDefinitions="*,*,*,*" ColumnDefinitions="0.3*,0.7*">
             <Label Text="Enter Your Bill : $" VerticalOptions="Center" TextColor="{StaticResource LightFont}"></Label>
-            <Entry Grid.Column="1" x:Name="txtBill" Text="0.0" BackgroundColor="{StaticResource SectionColor}"
-                   TextColor="{StaticResource LightFont}" VerticalOptions="Center" Keyboard="Numeric"
+            <Entry Grid.Column="1" 
+                   x:Name="txtBill" Text="0.0" 
+                   BackgroundColor="{StaticResource SectionColor}"
+                   TextColor="{StaticResource LightFont}" 
+                   VerticalOptions="Center"
+                   Keyboard="Default"
                    Completed="TxtBill_OnCompleted">
 
             </Entry>
-
+            <!--<Entry Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <toolkit:NumericValidationBehavior 
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        ValidStyle="{StaticResource ValidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumValue="1.0"
+                        MaximumValue="100.0"
+                        MaximumDecimalPlaces="2" />
+                </Entry.Behaviors>
+            </Entry>-->
 
             <Label Grid.Row="1" Text="Choose Your Tip :" TextColor="{StaticResource LightFont}" VerticalOptions="Center"></Label>
             <HorizontalStackLayout Grid.Row="1" Grid.Column="1" 
@@ -65,14 +81,14 @@
             <Label Grid.Row="2" Text="Tip : 0%" x:Name="lblTip" VerticalOptions="Center" TextColor="{StaticResource LightFont}"></Label>
 
 
-            <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="50" ValueChanged="Slider_OnValueChanged"></Slider>
+            <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="50" x:Name="sldTip" ValueChanged="Slider_OnValueChanged"></Slider>
 
             <Label Text="Split The Total" Grid.Row="3" TextColor="{StaticResource LightFont}" VerticalOptions="Center"></Label>
 
             <HorizontalStackLayout Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
                 <Button Text="-" x:Name="minus" Clicked="Minus_OnClicked" WidthRequest="70"></Button>
 
-                <Label Text="1" x:Name="txtNoPerson" WidthRequest="100" HeightRequest="50" Margin="-5,0,-5,0"
+                <Label Text="1" x:Name="lblNoPerson" WidthRequest="100" HeightRequest="50" Margin="-5,0,-5,0"
                        VerticalOptions="Center" HorizontalOptions="Center"
                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="25" 
                        BackgroundColor="{StaticResource SectionColor}" TextColor="{StaticResource LightFont}">
